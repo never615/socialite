@@ -13,6 +13,7 @@ namespace Overtrue\Socialite;
 
 use Closure;
 use InvalidArgumentException;
+use Overtrue\Socialite\Providers\WeChatCorpServerProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -48,15 +49,16 @@ class SocialiteManager implements FactoryInterface
      * @var array
      */
     protected $initialDrivers = [
-            'facebook' => 'Facebook',
-            'github' => 'GitHub',
-            'google' => 'Google',
-            'linkedin' => 'Linkedin',
-            'weibo' => 'Weibo',
-            'qq' => 'QQ',
-            'wechat' => 'WeChat',
-            'wechat_open' => 'WeChatOpenPlatform',
-            'douban' => 'Douban',
+        'facebook'           => 'Facebook',
+        'github'             => 'GitHub',
+        'google'             => 'Google',
+        'linkedin'           => 'Linkedin',
+        'weibo'              => 'Weibo',
+        'qq'                 => 'QQ',
+        'wechat'             => 'WeChat',
+        'wechat_open'        => 'WeChatOpenPlatform',
+        'wechat_corp_server' => 'WeChatCorpServer',
+        'douban'             => 'Douban',
     ];
 
     /**
@@ -235,8 +237,8 @@ class SocialiteManager implements FactoryInterface
     public function formatConfig(array $config)
     {
         return array_merge([
-            'identifier' => $config['client_id'],
-            'secret' => $config['client_secret'],
+            'identifier'   => $config['client_id'],
+            'secret'       => $config['client_secret'],
             'callback_uri' => $config['redirect'],
         ], $config);
     }
