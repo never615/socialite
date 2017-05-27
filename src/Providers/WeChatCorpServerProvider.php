@@ -11,7 +11,6 @@
 
 namespace Overtrue\Socialite\Providers;
 
-use GuzzleHttp\ClientInterface;
 use Overtrue\Socialite\AccessTokenInterface;
 use Overtrue\Socialite\AuthorizeFailedException;
 use Overtrue\Socialite\InvalidStateException;
@@ -98,7 +97,6 @@ class WeChatCorpServerProvider extends WeChatProvider
         }
 
         $userTicket = $this->getUserTicket($this->getCode());
-        \Log::info($userTicket);
 
         $user = $this->getUserByTicket($userTicket);
 
@@ -127,7 +125,7 @@ class WeChatCorpServerProvider extends WeChatProvider
         $url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token=$token";
 
         $response = $this->getHttpClient()->post($url, [
-            'json'    => ['user_ticket' => $userTicket],
+            'json' => ['user_ticket' => $userTicket],
         ]);
 
         return json_decode($response->getBody(), true);
@@ -162,10 +160,9 @@ class WeChatCorpServerProvider extends WeChatProvider
 
         if (empty($body['user_ticket'])) {
             //todo 处理非企业号成员
+            \Log::warning("非企业号成员请求授权");
             throw new AuthorizeFailedException('Authorize Failed: '.json_encode($body, JSON_UNESCAPED_UNICODE), $body);
         }
-
-        \Log::info($body);
 
         return $body['user_ticket'];
     }
