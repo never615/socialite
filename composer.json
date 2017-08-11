@@ -1,6 +1,7 @@
 {
     "name": "overtrue/socialite",
     "description": "A collection of OAuth 2 packages that extracts from laravel/socialite.",
+    "type": "library",
     "keywords": ["OAuth", "social", "login", "Weibo", "WeChat", "QQ"],
     "autoload": {
         "psr-4": {
