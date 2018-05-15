@@ -11,6 +11,7 @@
 
 namespace Overtrue\Socialite\Providers;
 
+use Mallto\Tool\Exception\ResourceException;
 use Overtrue\Socialite\AccessTokenInterface;
 use Overtrue\Socialite\AuthorizeFailedException;
 use Overtrue\Socialite\InvalidStateException;
@@ -162,8 +163,8 @@ class WeChatCorpServerProvider extends WeChatProvider
             //todo 处理非企业号成员
             \Log::warning("非企业号成员请求授权");
             \Log::warning($body);
-//            throw new ResourceException("微信授权失败:非企业号成员请求授权");
-            throw new AuthorizeFailedException('企业号授权失败', null);
+            throw new ResourceException("微信授权失败:非企业号成员请求授权");
+//            throw new AuthorizeFailedException('企业号授权失败', null);
 //            throw new AuthorizeFailedException('Authorize Failed: '.json_encode($body, JSON_UNESCAPED_UNICODE), $body);
         }
 
